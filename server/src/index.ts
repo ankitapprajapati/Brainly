@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 
 import { mainRouter } from './routes/mainRouter';
-import { connectToDB } from './DB/db';
+import { connectToDB } from './config/db';
 
 require("dotenv").config()
 const app = express();
