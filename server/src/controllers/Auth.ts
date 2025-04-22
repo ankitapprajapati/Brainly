@@ -33,7 +33,7 @@ export const signUp =  async ( req:Request,res:Response) : Promise<void>=>{
         return
     }
 
-    let { username,password } = req.body;
+    let { firstname,lastname,username,password } = req.body;
 
     try{
         const isUserExist = await User.findOne({username})
@@ -47,6 +47,8 @@ export const signUp =  async ( req:Request,res:Response) : Promise<void>=>{
         const hashedPassword = await bcrypt.hash( password,10)
         
         const user = await User.create({
+            firstname:firstname,
+            lastname:lastname,
             username:username,
             password:hashedPassword
         })
