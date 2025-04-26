@@ -41,7 +41,7 @@ const AuthForm = ({buttonText,headerText,isSignup,buttomText}:AuthFormProps) => 
                 color: '#fff',
               }
             })
-          },1000 );
+          },5000 );
 
           const response = await ApiConnector({
             method:"post",

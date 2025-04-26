@@ -1,12 +1,12 @@
 
 import { RecoilRoot } from 'recoil'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Landing from './components/pages/Landing'
+import Landing from './pages/Landing'
 import './App.css'
-import SignIn from './components/pages/SignIn'
-import SignUp from './components/pages/SignUp'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
 import { Toaster } from 'react-hot-toast'
-import Dashboard from './components/pages/Dashboard'
+import Dashboard from './pages/Dashboard'
 
 function App() {
 
