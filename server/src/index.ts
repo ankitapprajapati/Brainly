@@ -3,6 +3,7 @@ import cors from 'cors'
 
 import { mainRouter } from './routes/mainRouter';
 import { connectToDB } from './config/db';
+import { predefinedTags } from './utils/prededinedTag';
 
 require("dotenv").config()
 const app = express();
@@ -10,6 +11,7 @@ const port = process.env.PORT
 
 
 connectToDB();
+predefinedTags();
 
 app.use( cors() );
 app.use( express.json() )

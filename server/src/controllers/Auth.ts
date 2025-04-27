@@ -86,7 +86,7 @@ export const signIn =  async ( req:Request,res:Response) : Promise<void>=>{
         const user = await User.findOne({username})
         if( !user ){
             res.status(403).json({
-                message : "wrong username",
+                message : "Incorrect username",
             })
             return
         }
@@ -95,7 +95,7 @@ export const signIn =  async ( req:Request,res:Response) : Promise<void>=>{
 
         if( !isCorrectPassword ) {
             res.status( 403).json({
-                message : "wrong password"
+                message : "Incorrect password"
             })
             return ;
         }

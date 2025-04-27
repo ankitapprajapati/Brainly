@@ -1,6 +1,6 @@
 // 
 import { Response } from "express";
-import { contentSchema } from "../zod_schema/contentSchema";
+import { contentSchema, editContentSchema } from "../zod_schema/contentSchema";
 import { Content } from "../models/Content";
 import { AuthenticatedRequest } from "../types/express";
 
@@ -25,7 +25,7 @@ export const createContent = async (req:AuthenticatedRequest,res:Response):Promi
             link,
             type,
             userId : req.userId,
-            // tags
+            tags
         })
 
         const content = await Content.find( {userId:req.userId})
@@ -67,7 +67,7 @@ export const deleteContent = async (req:AuthenticatedRequest,res:Response):Promi
 
 export const editContent = async (req:AuthenticatedRequest,res:Response):Promise<void> => {
     try{
-        const result = contentSchema.safeParse(req.body);
+        const result = editContentSchema.safeParse(req.body);
         if( !result.success ){
             res.status(411).json({
                 message : result.error.issues[0].message,
@@ -77,10 +77,8 @@ export const editContent = async (req:AuthenticatedRequest,res:Response):Promise
         }
 
         const {title,link,type,description,tags,contentId} = req.body
-        // id k liye alag se schama teyyar karnah 
 
-
-        const content = Content.findByIdAndUpdate(contentId, {title,type,description,link}, {new:true} )
+        const content = await Content.findByIdAndUpdate(contentId, {title,type,description,link,tags}, {new:true} )
         
         res.status(200).json({
             message: "Updated succesfully",
@@ -98,6 +96,10 @@ export const editContent = async (req:AuthenticatedRequest,res:Response):Promise
 
 export const getAllContent = async (req:AuthenticatedRequest,res:Response):Promise<void> => {
     try{
+        const content = await Content.find({userId:req.userId}).populate("tags","title").populate("userId","username firstname lastname")
+        res.status(200).json({
+            content:content,
+        })
 
     }
     catch(e){

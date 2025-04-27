@@ -13,7 +13,7 @@ const jwt_secret = process.env.JWT_SECRET;
 export const authMiddleware = async ( req:AuthenticatedRequest, res:Response, next : NextFunction ) : Promise<void> =>{
     try{
         const authHeader = req.headers.authorization
-        if( !authHeader || authHeader.startsWith("Bearer ")){
+        if( !authHeader || !authHeader.startsWith("Bearer ")){
             res.status(401).json({
                 message : "Auth token is missing"
             })
