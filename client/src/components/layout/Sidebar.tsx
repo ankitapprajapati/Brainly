@@ -8,17 +8,30 @@ import PlusIcon from "../../icons/PlusIcon"
 import ShareIcon from "../../icons/ShareIcon"
 import { TwitterIcon } from "../../icons/TwitterIcon"
 import { YoutubeIcon } from "../../icons/YoutubeIcon"
-import SidebarComponent from "./SidebarComponent"
+import SidebarComponent from "../ui/SidebarComponent"
+import { useState } from "react"
+import ShareModal from "../modal/ShareModal"
+import { CreateContentModal } from "../modal/CreateContentModal"
 
 
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [openCreateModal,setOpenCreateModal] = useState(false);
+  const [openShareModal,setOpenShareModal] = useState(false);
+  const [openLogoutModal,setOpenLogoutModal] = useState(false);
+
+  const handleCreateModal = ()=>setOpenCreateModal((s)=>!s)
+  const handleShareModal = ()=>setOpenShareModal((s)=>!s)
+  const handleLogoutModal = ()=>setOpenLogoutModal((s)=>!s)
+
 
   const handleImageClick = ()=> navigate("/")
 
   return (
     <div className="absolute left-0 top-0 pl-6 flex flex-col gap-2 min-w-72 border border-white/[0.2] h-auto px-4 rounded-md">
+      <CreateContentModal open={openCreateModal} onClose={handleCreateModal}/>
+      <ShareModal open={openShareModal} onClose={handleShareModal}/>
 
       <div className="py-10 flex items-center">
         <img 
@@ -35,12 +48,12 @@ const Sidebar = () => {
       </div>
 
       {/* options */}
-      <SidebarComponent text="My Brain" icon={<BrainIcon/>} selected={false} />
+      <SidebarComponent text="My Brain" icon={<BrainIcon/>} selected={false} onClick={()=> navigate("/dashboard")} />
       <SidebarComponent text="Twitter" icon={<TwitterIcon/>} selected={false} />  
       <SidebarComponent text="Youtube" icon={<YoutubeIcon/>} selected={false}/>
       <SidebarComponent text="Music"  icon={<MusicIcon/>} selected={true} />
       <SidebarComponent text="Link"  icon={<LinkIcon/>} selected={false} />
-      <SidebarComponent text="Add Contact" icon={<PlusIcon/>} selected={false} />
+      <SidebarComponent text="Add Contact" icon={<PlusIcon/>} selected={false} onClick={handleCreateModal}/>
       <SidebarComponent text="Share"  icon={<ShareIcon/>} selected={false}/>
       <SidebarComponent text="Logout" icon={<LogoutIcon/>} selected={false}/>
     </div>

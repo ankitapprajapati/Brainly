@@ -3,11 +3,11 @@ import {
     motion
  } from "framer-motion"
 import { useState } from "react"
-import FloatingNavButton from "./FloatingNavButton"
+import FloatingNavButton from "../ui/FloatingNavButton"
 import { useNavigate } from "react-router-dom"
 import HomeIcon from "../../icons/HomeIcon"
 import DashboardIcon from "../../icons/DashboardIcon"
-import FloatingNavOption from "./FloatingNavOption"
+import FloatingNavOption from "../ui/FloatingNavOption"
 import useLogout from "../../hooks/useLogout"
 
 const FloatingNavbar = () => {

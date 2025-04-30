@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useForm, } from "react-hook-form"
-import Button from "./Button"
-import Input from "./Input"
+import { useForm } from "react-hook-form"
+import Button from "../ui/Button"
+import Input from "../ui/Input"
 import VisibleIcon from "../../icons/VisibleIcon";
 import NotVisibleIcon from "../../icons/NotVisibleIcon";
 import { useNavigate } from "react-router-dom";

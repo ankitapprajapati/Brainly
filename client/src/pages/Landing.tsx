@@ -1,4 +1,4 @@
-import FloatingNavbar from "../components/ui/FloatingNavbar"
+import FloatingNavbar from "../components/layout/FloatingNavbar"
 
 
 const Landing = () => {

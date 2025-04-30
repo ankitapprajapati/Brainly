@@ -10,8 +10,16 @@ const app = express();
 const port = process.env.PORT
 
 
-connectToDB();
-predefinedTags();
+connectToDB()
+  .then(() => {
+    predefinedTags();
+  })
+  .catch((err) => {
+    console.error("Failed to connect to DB:", err);
+  });
+
+
+
 
 app.use( cors() );
 app.use( express.json() )

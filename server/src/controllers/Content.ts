@@ -31,7 +31,7 @@ export const createContent = async (req:AuthenticatedRequest,res:Response):Promi
         const content = await Content.find( {userId:req.userId})
 
         res.status(200).json({
-            message : "content added",
+            message : "Content added successfully",
             user : req.userId,
             userContent : content
         })
