@@ -12,6 +12,7 @@ import SidebarComponent from "../ui/SidebarComponent"
 import { useState } from "react"
 import ShareModal from "../modal/ShareModal"
 import { CreateContentModal } from "../modal/CreateContentModal"
+import { LogoutModal } from "../modal/LogoutModal"
 
 
 
@@ -29,9 +30,11 @@ const Sidebar = () => {
   const handleImageClick = ()=> navigate("/")
 
   return (
-    <div className="absolute left-0 top-0 pl-6 flex flex-col gap-2 min-w-72 border border-white/[0.2] h-auto px-4 rounded-md">
+    <div className="absolute left-0 top-0 pl-6 flex flex-col gap-2 mt-4 min-w-20 md:min-w- lg:min-w-72 border border-white/[0.2] h-auto px-4 rounded-md">
       <CreateContentModal open={openCreateModal} onClose={handleCreateModal}/>
       <ShareModal open={openShareModal} onClose={handleShareModal}/>
+      <LogoutModal open={openLogoutModal} onClose={handleLogoutModal} />
+      
 
       <div className="py-10 flex items-center">
         <img 
@@ -40,7 +43,7 @@ const Sidebar = () => {
           onClick={handleImageClick}
         />
         <a
-          className="absolute top-14 left-24 text-orange-500 font-bold text-3xl hover:cursor-pointer"
+          className="absolute top-14 left-24 text-orange-500 font-bold text-3xl hover:cursor-pointer hidden md:block"
           href="/"
         >
           BRAINLY
@@ -55,7 +58,7 @@ const Sidebar = () => {
       <SidebarComponent text="Link"  icon={<LinkIcon/>} selected={false} />
       <SidebarComponent text="Add Contact" icon={<PlusIcon/>} selected={false} onClick={handleCreateModal}/>
       <SidebarComponent text="Share"  icon={<ShareIcon/>} selected={false}/>
-      <SidebarComponent text="Logout" icon={<LogoutIcon/>} selected={false}/>
+      <SidebarComponent text="Logout" icon={<LogoutIcon/>} selected={false} onClick={handleLogoutModal}/>
     </div>
   )
 }

@@ -13,7 +13,7 @@ const SidebarComponent = ({icon,text,selected,onClick}:SidebarComponentProps) =>
       onClick={onClick}
     >
         <span className="text-white pl-4 text-2xl" >{icon}</span> 
-        <span className="text-white text-xl font-light">{text}</span>     
+        <span className="text-white text-xl font-light hidden md:block">{text}</span>  
     </div>
   )
 }
