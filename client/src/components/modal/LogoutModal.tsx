@@ -1,4 +1,4 @@
-
+import { LogoutForm } from "../form/LogoutForm";
 
 interface LogoutModalProps{
     open : boolean,
@@ -14,9 +14,9 @@ export function LogoutModal({open,onClose}:LogoutModalProps){
             >
                 <div 
                     onClick={ (e)=>e.stopPropagation() }
-                    className="text-purple-200 flex "
+                    className="text-purple-200 flex flex-col "
                 >
-                    
+                    <LogoutForm onClose={onClose}   />                    
                 </div>
             </div>
         }

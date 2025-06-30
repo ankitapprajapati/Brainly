@@ -3,20 +3,29 @@ import { brain } from "../../assets"
 import { BrainIcon } from "../../icons/BrainIcon"
 import { LinkIcon } from "../../icons/LinkIcon"
 import LogoutIcon from "../../icons/LogoutIcon"
-import { MusicIcon } from "../../icons/MusicIcon"
 import PlusIcon from "../../icons/PlusIcon"
 import ShareIcon from "../../icons/ShareIcon"
 import { TwitterIcon } from "../../icons/TwitterIcon"
 import { YoutubeIcon } from "../../icons/YoutubeIcon"
 import SidebarComponent from "../ui/SidebarComponent"
-import { useState } from "react"
+import { ReactElement, useState } from "react"
 import ShareModal from "../modal/ShareModal"
 import { CreateContentModal } from "../modal/CreateContentModal"
 import { LogoutModal } from "../modal/LogoutModal"
 
+interface SidebarProps{
+  selectedType : string,
+  onSelect : (type:string)=> void
+}
 
+interface sidebarComponentsOptionsProps{
+  text : string,
+  icon : ReactElement,
+  onClick? : ()=>void,
+  isModal? : "create"|"share"|"logout"
+}
 
-const Sidebar = () => {
+const Sidebar = ( {selectedType,onSelect} : SidebarProps) => {
   const navigate = useNavigate();
   const [openCreateModal,setOpenCreateModal] = useState(false);
   const [openShareModal,setOpenShareModal] = useState(false);
@@ -26,8 +35,17 @@ const Sidebar = () => {
   const handleShareModal = ()=>setOpenShareModal((s)=>!s)
   const handleLogoutModal = ()=>setOpenLogoutModal((s)=>!s)
 
-
   const handleImageClick = ()=> navigate("/")
+
+  const sidebarComponentOptions : sidebarComponentsOptionsProps[] = [
+    {text:"My Brain",    icon:<BrainIcon/>  , onClick : ()=> onSelect("My Brain")} ,
+    {text:"Twitter",     icon:<TwitterIcon/>, onClick : ()=> onSelect("Twitter") },
+    {text:"Youtube",     icon:<YoutubeIcon/>, onClick : ()=> onSelect("Youtube") },
+    {text:"Link",        icon:<LinkIcon/>   , onClick : ()=> onSelect("Link") },
+    {text:"Add Contant", icon:<PlusIcon/>   , onClick : handleCreateModal, isModal:"create" },
+    {text:"Share",       icon:<ShareIcon/>  , onClick : handleShareModal, isModal:"share" },
+    {text:"Logout",      icon:<LogoutIcon/> , onClick : handleLogoutModal, isModal:"logout" },
+  ]
 
   return (
     <div className="absolute left-0 top-0 pl-6 flex flex-col gap-2 mt-4 min-w-20 md:min-w- lg:min-w-72 border border-white/[0.2] h-auto px-4 rounded-md">
@@ -51,14 +69,18 @@ const Sidebar = () => {
       </div>
 
       {/* options */}
-      <SidebarComponent text="My Brain" icon={<BrainIcon/>} selected={false} onClick={()=> navigate("/dashboard")} />
-      <SidebarComponent text="Twitter" icon={<TwitterIcon/>} selected={false} />  
-      <SidebarComponent text="Youtube" icon={<YoutubeIcon/>} selected={false}/>
-      <SidebarComponent text="Music"  icon={<MusicIcon/>} selected={true} />
-      <SidebarComponent text="Link"  icon={<LinkIcon/>} selected={false} />
-      <SidebarComponent text="Add Contact" icon={<PlusIcon/>} selected={false} onClick={handleCreateModal}/>
-      <SidebarComponent text="Share"  icon={<ShareIcon/>} selected={false}/>
-      <SidebarComponent text="Logout" icon={<LogoutIcon/>} selected={false} onClick={handleLogoutModal}/>
+      { sidebarComponentOptions.map( ({text,icon,onClick})=>{
+        return (
+          <SidebarComponent
+            key={text}
+            text={text}
+            icon={icon}
+            selected={selectedType===text}
+            onClick={onClick}
+          />
+        )})
+      }
+      
     </div>
   )
 }
