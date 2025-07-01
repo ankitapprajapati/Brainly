@@ -3,7 +3,7 @@ import cors from 'cors'
 
 import { mainRouter } from './routes/mainRouter';
 import { connectToDB } from './config/db';
-import { predefinedTags } from './utils/prededinedTag';
+import { predefinedTags } from './utils/predefinedTag';
 
 require("dotenv").config()
 const app = express();

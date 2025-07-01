@@ -8,7 +8,6 @@ const contentSchema = new mongoose.Schema({
     link : { type : String, required : true },
     tags : [ { type : mongoose.Schema.Types.ObjectId, ref : "tags" }  ],
     userId : { type : mongoose.Schema.Types.ObjectId, ref: "users", required:true}
-    
 })
 
 export const Content = mongoose.model("contents",contentSchema)

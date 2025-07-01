@@ -66,14 +66,16 @@ export const shareLink = async( req:AuthenticatedRequest,res:Response)=>{
         // console.log( "link : ",link)
         if( !link ){
             res.status(411).json({
-                message: "Invalid Link"
+                message: "Invalid Link",
+                success : false
             })
             return;
         }
 
         if( !link.live ){
             res.status(404).json({
-                message : "This brain is private"
+                message : "This brain is private",
+                success : false
             })
             return
         }
@@ -85,8 +87,9 @@ export const shareLink = async( req:AuthenticatedRequest,res:Response)=>{
         .populate("tags")
 
         res.status(200).json({
-            message : "Content recieved successfully",
-            content : content
+            message : "Brain recieved successfully",
+            content : content,
+            success : true
         })
     }
     catch(e){

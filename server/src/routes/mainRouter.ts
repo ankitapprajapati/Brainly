@@ -3,6 +3,7 @@ import { userRouter } from "./userRouter";
 import { contentRouter } from "./contentRouter";
 import { authMiddleware } from "../middleware/authMiddleware";
 import { brainRouter } from "./brainRouter";
+import { tagRouter } from "./tagRouter";
 
 export const mainRouter = express.Router()
 
