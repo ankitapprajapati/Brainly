@@ -1,11 +1,7 @@
 import { ReactElement, useState, useEffect } from "react";
 import CrossIcon from "../../icons/CrossIcon";
 import { useFormContext } from "react-hook-form";
-
-interface Tag {
-  _id?: string;
-  title: string;
-}
+import { Tag } from "../types/tag";
 
 interface MultiTagInputProps {
   label: string;

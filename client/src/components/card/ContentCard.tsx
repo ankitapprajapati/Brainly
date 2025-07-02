@@ -17,7 +17,7 @@ interface CardProps{
   contentId : string,
   title : string;
   link  : string;
-  type  : "twitter" | "youtube" | "music" | "other";
+  type  : string,
   description : string,
   tags : Tag[],
 }
@@ -87,7 +87,7 @@ const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
   }
 
   return (
-    <div className=" text-white p-4 shadow-md border border-white/[0.2] rounded-md w-full min-w-60 max-w-80 min-h-36 max-h-80 overflow-hidden flex flex-col  ">
+    <div className=" text-white p-4 shadow-md border border-white/[0.2] rounded-md w-full min-w-60 max-w-80 min-h-80 max-h-80 overflow-hidden flex flex-col  ">
 
       {/* header */}
       <div className="flex justify-between gap-4">
@@ -114,7 +114,7 @@ const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
       </div>
 
       <div className="flex-1 overflow-y-auto mt-3 rounded-md scrollbar-hide">
-        {type==="youtube" && <iframe className="w-full mt-4 " src={link?.replace("watch?v=","embed/")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> }
+        {type==="youtube" && <iframe className="w-full mt-4 " src={link?.split("&list=")[0].replace("watch?v=","embed/")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> }
         {type==="twitter" && 
         <div className="">
           <blockquote className="twitter-tweet">

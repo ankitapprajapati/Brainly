@@ -5,15 +5,18 @@ import DropDownInput from "../ui/DropDownInput"
 import TextArea from "../ui/TextArea"
 import MultiTagInput from "../ui/MultiTagInput"
 import Button from "../ui/Button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ApiConnector } from "../../operations/ApiConnector"
 import { endPoints } from "../../operations/Api"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
+import { Tag } from "../types/tag"
 
 interface AddContentFormProps{
     onClose : ()=> void,
 }
+
+
 
 
 const AddContentForm = ({onClose}:AddContentFormProps) => {
@@ -23,9 +26,30 @@ const AddContentForm = ({onClose}:AddContentFormProps) => {
     const methods = useForm()
     const {handleSubmit,register}=methods
     const [loading,setLoading] = useState(false)
+    const [Tags,setTags] = useState<Tag[]>([]);
 
-    const types = ["youtube","twitter"];
-    const tags = [{_id:"id", title:"entertainment"},{_id:"id", title:"politics"},{_id:"id", title:"productive"},{_id:"id", title:"placement"},{_id:"id", title:"jobs"},{_id:"id", title:"development"},{_id:"id", title:"dsa"},{_id:"id", title:"music"}]
+    
+
+    useEffect( ()=>{
+        async function getTag() {
+            try{
+                const response = await ApiConnector({
+                    method : "get",
+                    url : endPoints.GET_TAG,
+                    headers : {
+                        Authorization : `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
+                setTags(response.data.tags)
+            }
+            catch(e:any){
+
+            }
+        }
+        getTag();
+    },[])
+
+    const types = ["youtube","twitter","link"];
     
     const onSubmit = async ( data : any)=>{
         setLoading(true)
@@ -84,7 +108,7 @@ const AddContentForm = ({onClose}:AddContentFormProps) => {
                 <Input placeholder="Paste link"  type="text" label="Link" name="link" register={register("link")}/>
                 <DropDownInput label="Type" name="type" register={register("type")} types={types}  />
                 <TextArea placeholder="Description" label="Description" name="description" register={register("description")} />
-                <MultiTagInput placeholder="Select tags" label="Tags" name="tags" tags={tags} />
+                <MultiTagInput placeholder="Select tags" label="Tags" name="tags" tags={Tags} />
                 <div className="mt-2">
                     <Button variant="primary" text="Submit"  fullWidth={true} loading={loading}  />
                 </div>
