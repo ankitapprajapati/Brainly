@@ -48,7 +48,7 @@ const Sidebar = ( {selectedType,onSelect} : SidebarProps) => {
   ]
 
   return (
-    <div className="absolute left-0 top-0 pl-6 flex flex-col gap-2 mt-4 min-w-20 md:min-w- lg:min-w-72 border border-white/[0.2] h-auto px-4 rounded-md">
+    <div className="absolute left-0 top-0 pl-6 flex flex-col gap-2 mt-4 w-24 md:min-w-56 lg:min-w-72 border border-white/[0.2] h-auto px-4 rounded-md">
       <CreateContentModal open={openCreateModal} onClose={handleCreateModal}/>
       <ShareModal open={openShareModal} onClose={handleShareModal}/>
       <LogoutModal open={openLogoutModal} onClose={handleLogoutModal} />

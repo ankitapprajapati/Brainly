@@ -128,7 +128,7 @@ const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
         {/* description & tags */}
         <div className="">
           <p className=" mt-4 text-gray-400 text-base whitespace-pre-line break-words">{description}</p>
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap gap-2 mt-2 absolute ">
             {
               tags?.map((tag,ind)=>(
                 <span 
