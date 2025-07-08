@@ -4,14 +4,16 @@ import Sidebar from "../components/layout/Sidebar"
 import { ApiConnector } from "../operations/ApiConnector"
 import { endPoints } from "../operations/Api"
 import { Content } from "../components/types/content"
-
+import UnPublishBrain from "../components/UnPublishBrain"
+import useStatus from "../hooks/useStatus"
 
 
 const Dashboard = () => {
   const [allContent,setAllContent] = useState<Content[]>([])
   const [selectedType, setSelectedType ] = useState("My Brain");
 
-
+  // const {data} = useStatus();
+  
   useEffect( ()=>{
     const fetchData = async()=>{
       const response = await ApiConnector({
@@ -32,22 +34,28 @@ const Dashboard = () => {
       <div className="fixed">
         <Sidebar selectedType={selectedType} onSelect={setSelectedType}/>
       </div>      
-      <div className="text-white grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 ml-52 md:ml-60 lg:ml-72 overflow-auto scrollbar-none ">
-        { 
-          allContent.map( (content,index)=>{
-            return (
-              <Card
-                key={index}
-                contentId={content._id}
-                title={content.title}
-                description={content.description}
-                link={content.link}
-                tags={content.tags}
-                type={content.type}                
-              />
-            )
-          })
-        }
+      <div className="w-full ml-52 md:ml-60 lg:ml-72 p-4 flex flex-col gap-4 ">
+        <div className="py-4 flex justify-between pr-20 md:pr-10 sm:pr-2 border border-white/[0.2] rounded-md px-4">
+          <span className="text-white font-semibold text-2xl">Workspace</span>
+          <UnPublishBrain/>
+        </div>      
+        <div className="text-white grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6  overflow-auto scrollbar-none ">
+          { 
+            allContent.map( (content,index)=>{
+              return (
+                <Card
+                  key={index}
+                  contentId={content._id}
+                  title={content.title}
+                  description={content.description}
+                  link={content.link}
+                  tags={content.tags}
+                  type={content.type}                
+                />
+              )
+            })
+          }
+        </div>
       </div>
     </div>
   )
