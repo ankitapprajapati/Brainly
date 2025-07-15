@@ -14,7 +14,7 @@ export function LogoutModal({open,onClose}:LogoutModalProps){
             >
                 <div 
                     onClick={ (e)=>e.stopPropagation() }
-                    className="text-purple-200 flex flex-col "
+                    className="text-purple-200 flex flex-col bg-red "
                 >
                     <LogoutForm onClose={onClose}   />                    
                 </div>

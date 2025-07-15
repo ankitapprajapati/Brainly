@@ -4,7 +4,7 @@ import ShareIcon from "../../icons/ShareIcon"
 import { TwitterIcon } from "../../icons/TwitterIcon";
 import { YoutubeIcon } from "../../icons/YoutubeIcon";
 import { MusicIcon } from "../../icons/MusicIcon";
-import { spotify } from "../../assets";
+import { link_img } from "../../assets";
 import toast from "react-hot-toast";
 import { ApiConnector } from "../../operations/ApiConnector";
 import { endPoints } from "../../operations/Api";
@@ -113,7 +113,8 @@ const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto mt-3 rounded-md scrollbar-hide">
+      {/* ----BODY----- */}
+      <div className="flex-1 overflow-y-auto rounded-md scrollbar-hide max-h-44">
         {type==="youtube" && <iframe className="w-full mt-4 " src={link?.split("&list=")[0].replace("watch?v=","embed/")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> }
         {type==="twitter" && 
         <div className="">
@@ -123,26 +124,26 @@ const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
           </blockquote> 
         </div>
         }
-        {type==="music" && <div> <img src={spotify} alt="" /></div> }
+        {type==="link" && <div> <img src={link_img} alt="" /></div> }
+      </div>
 
-        {/* description & tags */}
-        <div className="">
-          <p className=" mt-4 text-gray-400 text-base whitespace-pre-line break-words">{description}</p>
-          <div className="flex flex-wrap gap-2 mt-2 absolute ">
-            {
-              tags?.map((tag,ind)=>(
-                <span 
-                  key={ind}
-                  className="bg-stone-900 rounded-lg px-2 scale-90 text-blue-500"
-                >
-                  <i>{"#"}{tag.title}</i>
-                </span>
-              ))
-            }
-          </div>
+      {/* description & tags */}
+      <div className=" ">
+        <p className="  text-gray-400 text-base whitespace-pre-line break-words">{description}</p>
+        <div className="flex flex-wrap gap-2 mt-2 absolute ">
+          {
+            tags?.map((tag,ind)=>(
+              <span 
+                key={ind}
+                className="bg-stone-900 rounded-lg px-2 scale-90 text-blue-500"
+              >
+                <i>{"#"}{tag.title}</i>
+              </span>
+            ))
+          }
         </div>
+      </div>
       </div>       
-    </div>
   )
 }
 
