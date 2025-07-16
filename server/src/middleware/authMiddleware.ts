@@ -2,7 +2,7 @@ import { NextFunction, Response,Request } from "express"
 import jwt, { JwtPayload } from "jsonwebtoken"
 import { AuthenticatedRequest } from "../types/express";
 
-require("dotenv").config
+require("dotenv").config()
 
 if( !process.env.JWT_SECRET ){
     throw new Error( "JWT_SECRET is not defined in environmental variable");
@@ -32,8 +32,13 @@ export const authMiddleware = async ( req:AuthenticatedRequest, res:Response, ne
             })
         }
     }
-    catch(e){
+    catch(e: any){
         console.log("Error in auth middleware : "+ e)
+        if( e.name==="TokenExpiredError"){
+            res.status(403).json({
+                message: "your session is expired, Login again !!",
+            })
+        }
         res.status(403).json({
             message: "internal server error",
         })

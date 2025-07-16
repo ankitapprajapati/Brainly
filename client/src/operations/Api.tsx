@@ -16,4 +16,6 @@ export const endPoints = {
     CREATE_TAG : `${BACKEND_URL}/api/v1/tag/createTag`,
     GET_TAG : `${BACKEND_URL}/api/v1/tag/getTag`,
 
+    PROFILE : `${BACKEND_URL}/api/v1/profile`
+
 }

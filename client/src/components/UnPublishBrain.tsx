@@ -12,8 +12,8 @@ const UnPublishBrain = () => {
   const {data,loading,error} = useStatus();
 
   useEffect( ()=>{
-    if(data ) setStatus(data.live)
-  },[])
+    if(data) setStatus(data.live)
+  },[data])
 
   const handleToggle = async ()=>{
     if( data===null ) return ;

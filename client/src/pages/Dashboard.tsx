@@ -5,16 +5,20 @@ import { ApiConnector } from "../operations/ApiConnector"
 import { endPoints } from "../operations/Api"
 import { Content } from "../components/types/content"
 import UnPublishBrain from "../components/UnPublishBrain"
-import useStatus from "../hooks/useStatus"
+import useAuthGuard from "../hooks/useAuthGuard"
 
 
 const Dashboard = () => {
   const [allContent,setAllContent] = useState<Content[]>([])
   const [selectedType, setSelectedType ] = useState("My Brain");
 
+  const {checking} = useAuthGuard();
+  // if( checking ) return <div className="h-screen w-screen bg-slate-500 text-black text-lg">we are checking</div>
+
   // const {data} = useStatus();
   
   useEffect( ()=>{
+      if( checking ) return 
     const fetchData = async()=>{
       const response = await ApiConnector({
         method : "get",
@@ -27,7 +31,10 @@ const Dashboard = () => {
     }
     
     fetchData();    
-  },[])
+  },[checking])
+
+  if( checking ) return <div className="h-screen w-screen bg-slate-500 text-black text-lg">we are checking</div>
+
   return (
 
     <div className=" bg-black flex w-screen ">      

@@ -4,6 +4,7 @@ import { contentRouter } from "./contentRouter";
 import { authMiddleware } from "../middleware/authMiddleware";
 import { brainRouter } from "./brainRouter";
 import { tagRouter } from "./tagRouter";
+import { profileRouter } from "./profileRouter";
 
 export const mainRouter = express.Router()
 
@@ -11,3 +12,4 @@ mainRouter.use('/user',userRouter)
 mainRouter.use('/content',authMiddleware,contentRouter)
 mainRouter.use("/brain",authMiddleware,brainRouter)
 mainRouter.use("/tag",authMiddleware,tagRouter)
+mainRouter.use("/profile",authMiddleware,profileRouter)
