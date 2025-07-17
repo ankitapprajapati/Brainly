@@ -1,7 +1,10 @@
 
 import { toast } from "react-hot-toast";
-import useStatus from "../../hooks/useStatus"
+
 import { useEffect,useState } from "react";
+import { ApiConnector } from "../../operations/ApiConnector";
+import { endPoints } from "../../operations/Api";
+import useStatus from "../../hooks/useStatus";
 
 
 interface shareModalProps{
@@ -10,17 +13,51 @@ interface shareModalProps{
 }
 
 const ShareModal = ({open,onClose}: shareModalProps) => {
-  const {data,loading,error} = useStatus();
+  console.log( "share modal")
+  const {data,error,refetch} = useStatus();
+  const [link, setLink ] = useState<string|null>(null);
   const [copied,setCopied ] = useState(false)
+
+  console.log(data)
 
   useEffect(()=>{
     if(open) setCopied(false);
+    if( data && data.live===true ){
+      setLink(data.hash);
+      return      
+    }
+    const createLink = async ()=>{
+      try{
+        const response = await ApiConnector({
+          method:"post",
+          url : endPoints.BRAIN_CREATE_LINK,
+          headers:{
+            authorization : `Bearer ${localStorage.getItem("token")}`
+          },
+          body : {
+            share : true,
+          }
+        })
+
+        setLink(response.data.hash)
+        await refetch();
+      }
+      catch(e:any){
+        console.log("Error while getting link : " ,e)
+      }
+      
+    }
+    createLink();
   },[open])
+
   const handleCopy = async()=>{
-    if( !data || !data.hash ) return ;
+    if( !link  ) {
+      return ;
+    }
 
     try{
-      await navigator.clipboard.writeText(data.hash)
+      await navigator.clipboard.writeText(link)
+      console.log("setCopied = true")
       setCopied(true);
       toast.success("Link copied ",{
         duration:4000,
@@ -61,7 +98,7 @@ const ShareModal = ({open,onClose}: shareModalProps) => {
           <span>Wait, We are generating link to your brain 🧠 </span>
           
           {
-            loading ? (
+            link==null ? (
               <div className="flex items-center justify-center py-1 rounded-md text-md text-black bg-orange-200 w-full  animate-pulse ">Loading...</div>
             ) : 
             (

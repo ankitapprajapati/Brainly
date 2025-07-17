@@ -8,6 +8,7 @@ import { link_img } from "../../assets";
 import toast from "react-hot-toast";
 import { ApiConnector } from "../../operations/ApiConnector";
 import { endPoints } from "../../operations/Api";
+import { LinkIcon } from "../../icons/LinkIcon";
 
 type Tag = {
   title : string,
@@ -26,7 +27,7 @@ interface CardProps{
 const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
 
   const defineType = ()=>{
-    return (type==="twitter" && <TwitterIcon/>) || (type==="youtube" && <YoutubeIcon/>) || (type==="music" && <MusicIcon/>) || <BookIcon/>
+    return (type==="Twitter" && <TwitterIcon/>) || (type==="Youtube" && <YoutubeIcon/>) || (type==="Music" && <MusicIcon/>) || (type==="Link" && <LinkIcon/>) || <BookIcon/>
   }
 
   const handleCopyToClipboard = ()=>{
@@ -115,8 +116,8 @@ const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
 
       {/* ----BODY----- */}
       <div className="flex-1 overflow-y-auto rounded-md scrollbar-hide max-h-44">
-        {type==="youtube" && <iframe className="w-full mt-4 " src={link?.split("&list=")[0].replace("watch?v=","embed/")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> }
-        {type==="twitter" && 
+        {type==="Youtube" && <iframe className="w-full mt-4 " src={link?.split("&list=")[0].replace("watch?v=","embed/")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> }
+        {type==="Twitter" && 
         <div className="">
           <blockquote className="twitter-tweet">
             <a href={link?.replace("x.com","twitter.com")
@@ -124,7 +125,7 @@ const Card = ({contentId,title,link,type,description,tags}:CardProps) => {
           </blockquote> 
         </div>
         }
-        {type==="link" && <div> <img src={link_img} alt="" /></div> }
+        {type==="Link" && <div> <img src={link_img} alt="" /></div> }
       </div>
 
       {/* description & tags */}

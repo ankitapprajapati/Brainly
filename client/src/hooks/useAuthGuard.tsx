@@ -19,7 +19,6 @@ const useAuthGuard = () => {
                     },
                 })
                 setChecking(false)
-                console.log("set to false")
             }
             catch(e:any){
                 const message = e?.response?.data?.message || "Authentication failed";

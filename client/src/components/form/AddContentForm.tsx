@@ -49,7 +49,7 @@ const AddContentForm = ({onClose}:AddContentFormProps) => {
         getTag();
     },[])
 
-    const types = ["youtube","twitter","link"];
+    const types = ["Youtube","Twitter","Link"];
     
     const onSubmit = async ( data : any)=>{
         setLoading(true)

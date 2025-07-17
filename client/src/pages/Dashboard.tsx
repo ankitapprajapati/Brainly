@@ -10,7 +10,9 @@ import useAuthGuard from "../hooks/useAuthGuard"
 
 const Dashboard = () => {
   const [allContent,setAllContent] = useState<Content[]>([])
+  const [filteredContent,setFilteredContent] = useState<Content[]>([])
   const [selectedType, setSelectedType ] = useState("My Brain");
+  const [loading , setLoading ] = useState(true);
 
   const {checking} = useAuthGuard();
   // if( checking ) return <div className="h-screen w-screen bg-slate-500 text-black text-lg">we are checking</div>
@@ -20,20 +22,43 @@ const Dashboard = () => {
   useEffect( ()=>{
       if( checking ) return 
     const fetchData = async()=>{
-      const response = await ApiConnector({
-        method : "get",
-        url : endPoints.GET_CONTENT,
-        headers : {
-          authorization : `Bearer ${localStorage.getItem("token")}`
-        }
-      })
-      setAllContent(response.data.content)
+      try{
+        const response = await ApiConnector({
+          method : "get",
+          url : endPoints.GET_CONTENT,
+          headers : {
+            authorization : `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        setAllContent(response.data.content)
+        setLoading(false)
+      }
+      catch(e:any){
+        console.error("Error fetching content:", e);
+      }
+      finally{
+        setLoading(false)
+      }
     }
     
     fetchData();    
   },[checking])
 
-  if( checking ) return <div className="h-screen w-screen bg-slate-500 text-black text-lg">we are checking</div>
+  useEffect( ()=>{
+    const filtered =
+      ( selectedType==="My Brain" ) ?  
+      allContent
+      :
+      allContent.filter(
+        (content)  => {
+          console.log(`${selectedType},${content.type}`)
+          return content.type === selectedType
+        }
+      )
+      setFilteredContent(filtered)
+  },[selectedType,allContent])
+
+  if( checking ) return <div className="h-screen w-screen bg-slate-500 text-black text-lg">we are checking</div>  
 
   return (
 
@@ -45,24 +70,27 @@ const Dashboard = () => {
         <div className="py-4 flex justify-between pr-20 md:pr-10 sm:pr-2 border border-white/[0.2] rounded-md px-4">
           <span className="text-white font-semibold text-2xl">Workspace</span>
           <UnPublishBrain/>
-        </div>      
-        <div className="text-white grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6  overflow-auto scrollbar-none ">
-          { 
-            allContent.map( (content,index)=>{
-              return (
-                <Card
-                  key={index}
-                  contentId={content._id}
-                  title={content.title}
-                  description={content.description}
-                  link={content.link}
-                  tags={content.tags}
-                  type={content.type}                
-                />
-              )
-            })
+        </div> 
+        { loading===true ? ( <div className="text-white">..................Loading.........</div>  ) :     
+        (<div className="text-white grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6  overflow-auto scrollbar-none ">
+          { filteredContent.length > 0 ? (
+              filteredContent.map( (content,index)=>{
+                return (
+                  <Card
+                    key={index}
+                    contentId={content._id}
+                    title={content.title}
+                    description={content.description}
+                    link={content.link}
+                    tags={content.tags}
+                    type={content.type}                
+                  />
+                )
+              })
+          ) : <div> opps no item found.........</div>
           }
-        </div>
+        </div>)
+        }
       </div>
     </div>
   )
