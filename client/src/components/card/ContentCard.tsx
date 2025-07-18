@@ -9,10 +9,7 @@ import toast from "react-hot-toast";
 import { ApiConnector } from "../../operations/ApiConnector";
 import { endPoints } from "../../operations/Api";
 import { LinkIcon } from "../../icons/LinkIcon";
-
-type Tag = {
-  title : string,
-}
+import { Tag } from "../types/tag";
 
 interface CardProps{
   contentId : string,
