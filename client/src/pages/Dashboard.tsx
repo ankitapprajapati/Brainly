@@ -15,9 +15,6 @@ const Dashboard = () => {
   const [loading , setLoading ] = useState(true);
 
   const {checking} = useAuthGuard();
-  // if( checking ) return <div className="h-screen w-screen bg-slate-500 text-black text-lg">we are checking</div>
-
-  // const {data} = useStatus();
   
   useEffect( ()=>{
       if( checking ) return 
