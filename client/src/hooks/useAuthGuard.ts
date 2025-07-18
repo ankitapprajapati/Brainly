@@ -33,7 +33,7 @@ const useAuthGuard = () => {
                 })
 
                 localStorage.removeItem("token");
-                navigate('/')
+                navigate('/signin')
             }
         }
         check();

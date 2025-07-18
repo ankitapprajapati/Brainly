@@ -11,17 +11,17 @@ import Dashboard from './pages/Dashboard'
 function App() {
 
   return (
-    <BrowserRouter>
-      <RecoilRoot>
+    <RecoilRoot>
+      <BrowserRouter>
         <Routes>
           <Route path='/' element={<Landing/>}/>
           <Route path='/signin' element={<SignIn/>}/>
           <Route path='/signup' element={<SignUp/>}/>
           <Route path='/dashboard' element={<Dashboard/>} />
         </Routes>
-      </RecoilRoot>
       <Toaster/>
-    </BrowserRouter>
+      </BrowserRouter>
+    </RecoilRoot>
   )
 }
 

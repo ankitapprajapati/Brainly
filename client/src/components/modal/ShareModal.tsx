@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { useEffect,useState } from "react";
 import { ApiConnector } from "../../operations/ApiConnector";
 import { endPoints } from "../../operations/Api";
-import useStatus from "../../hooks/useStatus";
+import { useStatus } from "../../recoil/hooks/useStatus";
 
 
 interface shareModalProps{
@@ -13,12 +13,9 @@ interface shareModalProps{
 }
 
 const ShareModal = ({open,onClose}: shareModalProps) => {
-  console.log( "share modal")
   const {data,error,refetch} = useStatus();
   const [link, setLink ] = useState<string|null>(null);
   const [copied,setCopied ] = useState(false)
-
-  console.log(data)
 
   useEffect(()=>{
     if(open) setCopied(false);
@@ -83,7 +80,7 @@ const ShareModal = ({open,onClose}: shareModalProps) => {
     }
   }
 
-  if( error ) return <p>Error...</p>
+  if( error ) return <p className="bg-black text-white">Error...</p>
 
   return <>
     {open && 
@@ -97,8 +94,8 @@ const ShareModal = ({open,onClose}: shareModalProps) => {
         >
           <span>Wait, We are generating link to your brain 🧠 </span>
           
-          {
-            link==null ? (
+          { 
+            link==null ? ( 
               <div className="flex items-center justify-center py-1 rounded-md text-md text-black bg-orange-200 w-full  animate-pulse ">Loading...</div>
             ) : 
             (
