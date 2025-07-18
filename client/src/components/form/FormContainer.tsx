@@ -1,11 +1,11 @@
 
 interface FormContainerProps{
     title : string,
-    onClose : ()=> void,
+    onClose? : ()=> void,
     children : React.ReactNode
 }
 
-const FormContainer = ({title,onClose,children}:FormContainerProps) => {
+const FormContainer = ({title,children}:FormContainerProps) => {
   return (
     <div className=" w-80 flex flex-col border border-white/[0.2] p-4 rounded-lg gap-4 ">
       <div className="flex justify-between">

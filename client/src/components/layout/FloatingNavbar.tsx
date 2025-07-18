@@ -2,7 +2,8 @@ import {
     AnimatePresence,
     motion
  } from "framer-motion"
-import { useState } from "react"
+
+ 
 import FloatingNavButton from "../ui/FloatingNavButton"
 import { useNavigate } from "react-router-dom"
 import HomeIcon from "../../icons/HomeIcon"
@@ -12,7 +13,7 @@ import useLogout from "../../hooks/useLogout"
 
 const FloatingNavbar = () => {
     const navigate = useNavigate()
-    const [visible,setVisible]=useState(true)
+    const visible= true
 
     const logOutHandler = useLogout();
 
